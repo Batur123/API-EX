@@ -37,7 +37,7 @@ io.use((socket, next) =>
         return next(new Error("Err 624"));
     }
 
-    if(!Boolean(Fonksiyonlar.APIKeyDogrula(socket.handshake.headers.authorization)))
+    if(!Boolean(Func.APIKeyDogrula(socket.handshake.headers.authorization)))
     {
         return next(new Error("Err 625"));
     }
