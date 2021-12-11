@@ -69,7 +69,8 @@ app.get('/', (req, res) =>
 app.post('/notice', function (req, res)
 {
     let API = Func.CheckApiKey(req.body.apikey);
-
+    let UserInput = req.body.apikey;
+    
     if(Object.keys(req.body).length === 0)
     {
         return res.status(400).send({errcode: 313, msg: "Err1"});
