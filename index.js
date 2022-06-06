@@ -1,9 +1,9 @@
 //Database
-const {DB} = require(__dirname+'/database/Database.js');
+const {db} = require(__dirname+'/database/database_control.js');
 
 //Functions
-const Func = require(__dirname+'/src/GeneralFunctions.js');
-const Color = require(__dirname+'/src/ConsoleColors.js');
+const Func = require(__dirname+'/src/functions.js');
+const Color = require(__dirname+'/src/console_colors.js');
 
 //Express
 const express = require('express');
@@ -20,7 +20,8 @@ const convert = require('xml-js');
 app.use("/styles", express.static(__dirname + '/styles'));
 app.use(express.urlencoded({extended: true}))
 
-let ActiveSockets = [];
+let activeSockets = [];
+
 const Server = app.listen(port, () => {
     console.log(Color.yellow + "API Service - " + `Listening on port: ${port}`);
 });
@@ -38,7 +39,7 @@ io.use((socket, next) => {
         return next(new Error("Err 625"));
     }
 
-    ActiveSockets.push({
+    activeSockets.push({
         id: socket.id,
         ip: socket.handshake.address.substring(2).split(":")[1],
         apikey: socket.handshake.headers.authorization
@@ -48,7 +49,7 @@ io.use((socket, next) => {
 
 io.on("connection", function (socket) {
     socket.on('disconnect', () => {
-        ActiveSockets.filter(word => word.id !== socket.id);
+        activeSockets.filter(word => word.id !== socket.id);
         console.log(Color.yellow+'[Disconnection]:'+Color.green+'This ID disconnected from socket: '+Color.magenta+" "+socket.id);
     });
 });
