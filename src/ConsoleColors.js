@@ -1,5 +1,4 @@
-var Colors =
-    {
+const colors = {
         reset: "\x1b[0m",
         bright: "\x1b[1m",
         dim: "\x1b[2m",
@@ -13,4 +12,4 @@ var Colors =
         white: "\x1b[37m",
     };
 
-exports.Color = Colors;
+exports.Color = colors;
